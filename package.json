@@ -1,0 +1,24 @@
+{
+  "name": "content_management_systems",
+  "version": "1.0.0",
+  "description": "## Your Task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jett65/Content_Management_systems.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jett65/Content_Management_systems/issues"
+  },
+  "homepage": "https://github.com/Jett65/Content_Management_systems#readme",
+  "dependencies": {
+    "inquirer": "^9.1.4",
+    "mysql2": "^2.3.3"
+  }
+}
