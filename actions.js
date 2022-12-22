@@ -18,13 +18,18 @@ const db = mysql.createConnection(
 
 // View functions
 
-function viewDeparts(departsName) {
+function viewDeparts() {
     // Displays the departments to the user
-    const query = db.query("SELECT * FROM departments")
+    db.query("SELECT department_name FROM departments",(err,results) => {
+        console.log(results)
+    });
 }
 
 function viewRoles() {
     // Displays the Roles to the user
+    db.query("SELECT role_name FROM roles", (err,results) => {
+        console.log(results)
+    })
 }
 
 function viewEmployees() {

@@ -1,13 +1,13 @@
 const inquirer = require("inquirer");
-const actions = require("./actions")
+const actions = require("./actions");
 
-const choice1 = "View all Departments"
-const choice2 = "View all Roles" 
-const choice3 = "View all Employees"
-const choice4 = "Add a Department"
-const choice5 = "Add a Role"
-const choice6 = "Add an Employee"
-const choice7 = "Update an Employee Role"
+const choice1 = "View all Departments";
+const choice2 = "View all Roles";
+const choice3 = "View all Employees";
+const choice4 = "Add a Department";
+const choice5 = "Add a Role";
+const choice6 = "Add an Employee";
+const choice7 = "Update an Employee Role";
 
 const choices = [
     {
@@ -26,34 +26,17 @@ const choices = [
     }
 ];
 
-async function menu_test() {
-    // Displays the menu to the string
-
-    await inquirer
+function menu() {
+    // Displays the menu to the screen 
+    inquirer
         .prompt(choices)
         .then((data) => {
-            console.log(data)
-            if (choice1 === data) {
-                console.log("Yes")
-                actions.viewDeparts(data)
-            } else {
-                console.log("Nop")
+            if (data.choices === choice1) {
+                actions.viewDeparts();
             }
-            return data
-        }); 
+        });
 }
 
-// function menu() {
-//     // Displays the menu to the string
-//     inquirer
-//         .prompt(choices)
-//         .then((data) => {
-//             console.log(data);
-//         });
-// }
+menu();
 
-// const menu_test2 = inquirer.prompt(choices).then(async (data) => { 
-//     await console.log(data)
-// })
-
-menu_test()
+// TODO: Restructer the database 

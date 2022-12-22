@@ -1,2 +1,2 @@
-INSERT INTO departments (department_name)
-VALUES ("Marketing")
+INSERT INTO employee (first_name, last_name)
+VALUES  ("Jett", "Crowther")
