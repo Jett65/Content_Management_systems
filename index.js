@@ -33,10 +33,14 @@ function menu() {
         .then((data) => {
             if (data.choices === choice1) {
                 actions.viewDeparts();
+            } else if (data.choices === choice2) {
+                actions.viewRoles();
+            } else if (data.choices === choice3) {
+                actions.viewEmploys();
+            } else {
+                console.log("Function not added");
             }
         });
 }
 
 menu();
-
-// TODO: Restructer the database 
