@@ -9,7 +9,7 @@ const choice5 = "Add a Role";
 const choice6 = "Add an Employee";
 const choice7 = "Update an Employee Role";
 
-const choices = [
+const questions = [
     {
         type: "list",
         name: "choices",
@@ -29,7 +29,7 @@ const choices = [
 function menu() {
     // Displays the menu to the screen 
     inquirer
-        .prompt(choices)
+        .prompt(questions)
         .then((data) => {
             if (data.choices === choice1) {
                 actions.viewDeparts();
@@ -37,10 +37,15 @@ function menu() {
                 actions.viewRoles();
             } else if (data.choices === choice3) {
                 actions.viewEmploys();
+            } else if (data.choices === choice4) {
+                actions.addDepart();
+            } else if (data.choices === choice6) {
+                actions.addEmploy();
             } else {
                 console.log("Function not added");
             }
         });
 }
+
 
 menu();

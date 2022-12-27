@@ -1,3 +1,4 @@
+const inquirer = require("inquirer");
 const mysql = require("mysql2");
 
 // Connect to database
@@ -9,35 +10,46 @@ const db = mysql.createConnection({
 });
 // View functions
 
-function viewDeparts() {
+async function viewDeparts() {
     // Displays the departments to the user
-    db.query("SELECT department_name FROM departments",(err,results) => {
-        console.table(results);
+    await db.query("SELECT department_name FROM departments",(err,results) => {
+        console.log(results);
     });
 }
 
 function viewRoles() {
     // Displays the Roles to the user
     db.query("SELECT role_name FROM roles",(err,results) => {
-        console.table(results);
+        console.log(results);
     });
 }
 
 function viewEmployees() {
     // Displays the Employees to the user
     db.query("SELECT first_name, last_name FROM employees",(err,results) => {
-        console.table(results);
+        console.log(results);
     });
 }
 
 // Add Functions
 
-function addDepart(departmentName) {
+function addDepart() {
     // Allows the user to add a department
-    db.query(
-        `INSERT INTO departments (department_name)
-        VALUES (${departmentName})`
-    );
+    const question = [
+        {
+            type: "input",
+            name: "depName",
+            message: "What is the name of the new department: "
+        }
+    ];
+
+    inquirer
+        .prompt(question)
+        .then((data) => {
+            db.query(`INSERT INTO departments (department_name) VALUES ("${data.depName}")`,(err,results) => {
+                err ? console.log(err) : console.log(`The ${data.depName} department was added`);
+            });
+        });
 }
 
 function addRole() {
@@ -45,12 +57,28 @@ function addRole() {
     db.query("INSERT INTO ro"); // TODO: Find out how to add a role
 }
 
-function addEmploy(empFirst,empLast) {
+function addEmploy() {
     // Allows the user to add an Employee
-    db.query(
-        `INSERT INTO employees (first_name, last_name)
-        VALUES (${empFirst}, ${empLast})`
-    );
+    const question = [
+        {
+            type: "input",
+            name: "firstName",
+            message: "What is the new employees first name: "
+        },
+        {
+            type: "input",
+            name: "lastName",
+            message: "What is the new employees last name: "
+        }
+    ];
+
+    inquirer
+        .prompt(question)
+        .then((data) => {
+            db.query(`INSERT INTO employees (first_name, last_name) VALUES ("${data.firstName}", "${data.lastName}")`,(err,results) => {
+                err ? console.log(err) : console.log(`${data.firstName} ${data.lastName} was added`);
+            });
+        });
 }
 
 // Update function
