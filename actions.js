@@ -10,9 +10,9 @@ const db = mysql.createConnection({
 });
 // View functions
 
-async function viewDeparts() {
+function viewDeparts() {
     // Displays the departments to the user
-    await db.query("SELECT department_name FROM departments",(err,results) => {
+    db.query("SELECT department_name FROM departments",(err,results) => {
         console.log(results);
     });
 }
@@ -53,8 +53,51 @@ function addDepart() {
 }
 
 function addRole() {
-    // Allows the user to add a role
-    db.query("INSERT INTO ro"); // TODO: Find out how to add a role
+    // Allows the user to add a role 
+
+    // role name
+    // employeeID
+    // departmentID
+
+    const questions = [
+        {
+            type: "input",
+            name: "rolName",
+            message: "What is the name of the now role: "
+        },
+        {
+            type: "input",
+            name: "dep",
+            message: "What department this role in: "
+        },
+        {
+            type: "input",
+            name: "empFirst",
+            message: "What is the employees who is getting the roles first name: "
+        },
+        {
+            type: "input",
+            name: "empLast",
+            message: "What is there last name: "
+        }
+    ];
+
+    inquirer
+        .prompt(questions)
+        .then((data) => {
+            const empName = db.query(`SELECT ID FROM employees where first_name=${data.empFirst}, last_name=${data.epmLast}`,(err,results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    return results;
+                }
+            });
+
+            // TODO: get the department Id froe the department name
+        });
+
+
 }
 
 function addEmploy() {
