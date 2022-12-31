@@ -10,9 +10,9 @@ const db = mysql.createConnection({
 });
 // View functions
 
-async function viewDeparts() {
+function viewDeparts() {
     // Displays the departments to the user
-    await db.query("SELECT department_name FROM departments",(err,results) => {
+    db.query("SELECT department_name FROM departments",(err,results) => {
         console.log(results);
     });
 }
@@ -53,8 +53,63 @@ function addDepart() {
 }
 
 function addRole() {
-    // Allows the user to add a role
-    db.query("INSERT INTO ro"); // TODO: Find out how to add a role
+    // Allows the user to add a role 
+
+    const questions = [
+        {
+            type: "input",
+            name: "rolName",
+            message: "What is the name of the new role:"
+        },
+        {
+            type: "input",
+            name: "dep",
+            message: "What department is the now role in:"
+        },
+        {
+            type: "input",
+            name: "firstName",
+            message: "What is the resewing employees first name:"
+        },
+        {
+            type: "input",
+            name: "lastName",
+            message: "What is the employees last name:"
+        }
+    ];
+
+    inquirer
+        .prompt(questions)
+        .then(async (data) => {
+
+            // Get the employee ID using the employees first and last name
+            db.query(`SELECT ID FROM employees WHERE first_name="${data.firstName}"`,(err,results) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const empID = results[0].ID;
+
+                    // Get the departmentID from the name of the department
+                    db.query(`SELECT departmentID FROM departments WHERE department_name="${data.dep}"`,(err,results) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            const depID = results[0].departmentID;
+
+                            // Adds the new role to the database
+                            db.query(
+                                `INSERT INTO roles (role_name, employeeID, departmentID) VALUES ("${data.rolName}", "${empID}", "${depID}")`,(err,results) => {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log("role added");
+                                    }
+                                });
+                        }
+                    });
+                }
+            });
+        });
 }
 
 function addEmploy() {

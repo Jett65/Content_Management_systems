@@ -39,13 +39,17 @@ function menu() {
                 actions.viewEmploys();
             } else if (data.choices === choice4) {
                 actions.addDepart();
+            } else if (data.choices === choice5) {
+                actions.addRole();
             } else if (data.choices === choice6) {
                 actions.addEmploy();
+
             } else {
                 console.log("Function not added");
             }
         });
 }
 
-
 menu();
+// TODO: FInd out why the program is not stopping 
+// TODO: Make the add role get the employeeID using both the first and last name
