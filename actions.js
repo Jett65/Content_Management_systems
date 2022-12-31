@@ -63,41 +63,52 @@ function addRole() {
         {
             type: "input",
             name: "rolName",
-            message: "What is the name of the now role: "
+            message: "What is the name of the new role:"
         },
         {
             type: "input",
             name: "dep",
-            message: "What department this role in: "
+            message: "What department is the now role in:"
         },
         {
             type: "input",
-            name: "empFirst",
-            message: "What is the employees who is getting the roles first name: "
+            name: "firstName",
+            message: "What is the resewing employees first name:"
         },
         {
             type: "input",
-            name: "empLast",
-            message: "What is there last name: "
+            name: "lastName",
+            message: "What is the employees last name:"
         }
     ];
 
     inquirer
         .prompt(questions)
         .then((data) => {
-            const empName = db.query(`SELECT ID FROM employees where first_name=${data.empFirst}, last_name=${data.epmLast}`,(err,results) => {
+
+            // Get the employee ID using the employees first and last name
+            const empID = db.query(`SELECT ID FROM employees WHERE first_name="${data.firstName}"`,(err,results) => {
                 if (err) {
                     console.log(err);
-                }
-                else {
+                } else {
+                    console.log(results);
                     return results;
                 }
             });
 
-            // TODO: get the department Id froe the department name
+            // Get the departmentID from the name of the department
+            const depID = db.query(`SELECT departmentID FROM departments WHERE department_name="${data.dep}"`,(err,results) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(results);
+                    return results;
+                }
+            });
+
+            //db.query(`INSERT INTO roles (role_name, employeeID, departmentID) VALUES ("${data.rolName}", "${empID}", "${depID}")`);
+
         });
-
-
 }
 
 function addEmploy() {
@@ -130,6 +141,8 @@ function updateEmpRol() {
     //  Allows the user to update an employees role
     // TODO: Find out how to update
 }
+
+addRole();
 
 module.exports = {
     viewDeparts,
