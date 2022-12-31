@@ -55,10 +55,6 @@ function addDepart() {
 function addRole() {
     // Allows the user to add a role 
 
-    // role name
-    // employeeID
-    // departmentID
-
     const questions = [
         {
             type: "input",
@@ -84,30 +80,35 @@ function addRole() {
 
     inquirer
         .prompt(questions)
-        .then((data) => {
+        .then(async (data) => {
 
             // Get the employee ID using the employees first and last name
-            const empID = db.query(`SELECT ID FROM employees WHERE first_name="${data.firstName}"`,(err,results) => {
+            db.query(`SELECT ID FROM employees WHERE first_name="${data.firstName}"`,(err,results) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(results);
-                    return results;
+                    const empID = results[0].ID;
+
+                    // Get the departmentID from the name of the department
+                    db.query(`SELECT departmentID FROM departments WHERE department_name="${data.dep}"`,(err,results) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            const depID = results[0].departmentID;
+
+                            // Adds the new role to the database
+                            db.query(
+                                `INSERT INTO roles (role_name, employeeID, departmentID) VALUES ("${data.rolName}", "${empID}", "${depID}")`,(err,results) => {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log("role added");
+                                    }
+                                });
+                        }
+                    });
                 }
             });
-
-            // Get the departmentID from the name of the department
-            const depID = db.query(`SELECT departmentID FROM departments WHERE department_name="${data.dep}"`,(err,results) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(results);
-                    return results;
-                }
-            });
-
-            //db.query(`INSERT INTO roles (role_name, employeeID, departmentID) VALUES ("${data.rolName}", "${empID}", "${depID}")`);
-
         });
 }
 
@@ -141,8 +142,6 @@ function updateEmpRol() {
     //  Allows the user to update an employees role
     // TODO: Find out how to update
 }
-
-addRole();
 
 module.exports = {
     viewDeparts,

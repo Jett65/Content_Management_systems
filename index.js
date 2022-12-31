@@ -52,3 +52,4 @@ function menu() {
 
 menu();
 // TODO: FInd out why the program is not stopping 
+// TODO: Make the add role get the employeeID using both the first and last name
