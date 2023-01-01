@@ -12,8 +12,8 @@ const db = mysql.createConnection({
 
 function viewDeparts() {
     // Displays the departments to the user
-    db.query("SELECT department_name FROM departments",(err,results) => {
-        console.log(results);
+    db.query("SELECT * FROM departments",(err,results) => {
+        console.table(results);
     });
 }
 
@@ -140,7 +140,53 @@ function addEmploy() {
 
 function updateEmpRol() {
     //  Allows the user to update an employees role
-    // TODO: Find out how to update
+
+    // first name
+    // last name
+    // new role
+
+    const questions = [
+        {
+            type: "input",
+            name: "firstName",
+            message: "What is the employees first name:"
+        },
+        {
+            type: "input",
+            name: "lastName",
+            message: "What is the employees last name:"
+        },
+        {
+            type: "input",
+            name: "upRol",
+            message: "What is the new role they are reserving:"
+        }
+    ];
+
+    inquirer
+        .prompt(questions)
+        .then((data) => {
+
+            // Gets the employeesID from the first and last name
+            db.query(`SELECT ID FROM employees WHERE first_name="${data.firstName}"`,(err,results) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const empID = results[0].ID;
+
+                    // Updates the employees role
+                    db.query(`UPDATE roles SET role_name = "${data.upRol}" WHERE employeeID = "${empID}"`,(err,results) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("Role Updated");
+                        }
+                    });
+                }
+
+            });
+        });
+
 }
 
 module.exports = {
