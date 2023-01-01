@@ -43,7 +43,8 @@ function menu() {
                 actions.addRole();
             } else if (data.choices === choice6) {
                 actions.addEmploy();
-
+            } else if (data.choices === choice7) {
+                actions.updateEmpRol()
             } else {
                 console.log("Function not added");
             }
