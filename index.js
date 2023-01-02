@@ -1,5 +1,7 @@
 const inquirer = require("inquirer");
-const actions = require("./actions");
+const view = require("./actions/view");
+const add = require("./actions/add");
+const update = require("./actions/update")
 
 const choice1 = "View all Departments";
 const choice2 = "View all Roles";
@@ -32,19 +34,19 @@ function menu() {
         .prompt(questions)
         .then((data) => {
             if (data.choices === choice1) {
-                actions.viewDeparts();
+                view.viewDeparts();
             } else if (data.choices === choice2) {
-                actions.viewRoles();
+                view.viewRoles();
             } else if (data.choices === choice3) {
-                actions.viewEmploys();
+                view.viewEmployees();
             } else if (data.choices === choice4) {
-                actions.addDepart();
+                add.addDepart();
             } else if (data.choices === choice5) {
-                actions.addRole();
+                add.addRole();
             } else if (data.choices === choice6) {
-                actions.addEmploy();
+                add.addEmploy();
             } else if (data.choices === choice7) {
-                actions.updateEmpRol()
+                update.updateEmpRol()
             } else {
                 console.log("Function not added");
             }
