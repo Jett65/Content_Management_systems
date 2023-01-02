@@ -12,7 +12,12 @@ const db = mysql.createConnection({
 function viewDeparts() {
     // Displays the departments to the user
     db.query("SELECT * FROM departments",(err,results) => {
-        console.table(results);
+        if (err) {
+            console.log(err);
+        } else {
+            console.table(results);
+        }
+
     });
 }
 
@@ -22,7 +27,12 @@ function viewRoles() {
              FROM roles
              INNER JOIN departments ON roles.departmentID=departments.ID`,
         (err,results) => {
-            console.table(results);
+            if (err) {
+                console.log(err);
+            } else {
+                console.table(results);
+            }
+
         });
 }
 
@@ -33,7 +43,12 @@ function viewEmployees() {
               INNER JOIN roles ON employees.roleID=roles.ID
               INNER JOIN departments ON roles.departmentID=departments.ID`,
         (err,results) => {
-            console.table(results);
+            if (err) {
+                console.log(err);
+            } else {
+                console.table(results);
+            }
+
         });
 }
 
