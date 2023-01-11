@@ -22,8 +22,8 @@ function addDepart() {
     inquirer
         .prompt(question)
         .then((data) => {
-            db.query(`INSERT INTO departments (department_name) VALUES ("${data.depName}")`,(err,results) => {
-                err ? console.log(err) : console.log(`The ${data.depName} department was added`);
+            db.query(`INSERT INTO departments (name) VALUES ("${data.depName}")`,(err,results) => {
+                err ? console.log(err) : console.log(`Department Added`),process.exit();
             });
         });
 }
@@ -63,7 +63,13 @@ function addRole() {
                     // Adds the new role to the database
                     db.query(`INSERT INTO roles (job_title, departmentID, salary) 
                               VALUES ("${data.name}","${depID}", ${data.salary})`,(err,results) => {
-                        console.log("Role Added");
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("Role Added");
+                            process.exit();
+                        }
+
                     });
                 }
             });
@@ -114,6 +120,7 @@ function addEmploy() {
                             console.log(err);
                         } else {
                             console.log("employee added");
+                            process.exit();
                         }
                     });
 

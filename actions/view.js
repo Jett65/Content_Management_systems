@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
 
+
 // Connect to database
 const db = mysql.createConnection({
     host: "localhost",
@@ -16,8 +17,8 @@ function viewDeparts() {
             console.log(err);
         } else {
             console.table(results);
+            process.exit();
         }
-
     });
 }
 
@@ -31,6 +32,7 @@ function viewRoles() {
                 console.log(err);
             } else {
                 console.table(results);
+                process.exit();
             }
 
         });
@@ -47,6 +49,7 @@ function viewEmployees() {
                 console.log(err);
             } else {
                 console.table(results);
+                process.exit();
             }
 
         });
