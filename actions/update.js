@@ -69,9 +69,10 @@ function updateEmpRol() {
                                           WHERE ID="${empID}"`,(err,results) => {
                                             if (err) {
                                                 console.log(err);
-                                            } else (
-                                                console.log("Role Updated")
-                                            );
+                                            } else {
+                                                console.log("Role Updated");
+                                                process.exit();
+                                            }
                                         });
                                     }
                                 });

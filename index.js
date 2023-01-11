@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 const view = require("./actions/view");
 const add = require("./actions/add");
-const update = require("./actions/update")
+const update = require("./actions/update");
+
 
 const choice1 = "View all Departments";
 const choice2 = "View all Roles";
@@ -28,13 +29,37 @@ const questions = [
     }
 ];
 
+// const nextQuestions = [
+//     {
+//         type: "list",
+//         name: "next",
+//         message: "What would you like to do next",
+//         choices: [
+//             "Continue",
+//             "Quit"
+//         ]
+//     }
+// ]
+
+// function next() {
+//     inquirer
+//         .prompt(nextQuestions)
+//         .then((data) => {
+//             if (data.next === "Continue") {
+//                 menu()
+//             } else {
+//                 console.log("Thanks You")
+//             }
+//         })
+// }
+
 function menu() {
     // Displays the menu to the screen 
     inquirer
         .prompt(questions)
         .then((data) => {
             if (data.choices === choice1) {
-                view.viewDeparts();
+                view.viewDeparts(); 
             } else if (data.choices === choice2) {
                 view.viewRoles();
             } else if (data.choices === choice3) {
@@ -54,5 +79,7 @@ function menu() {
 }
 
 menu();
+
+module.exports = menu
 // TODO: FInd out why the program is not stopping 
 // TODO: Make the add role get the employeeID using both the first and last name
