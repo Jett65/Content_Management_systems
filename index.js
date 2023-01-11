@@ -29,29 +29,7 @@ const questions = [
     }
 ];
 
-// const nextQuestions = [
-//     {
-//         type: "list",
-//         name: "next",
-//         message: "What would you like to do next",
-//         choices: [
-//             "Continue",
-//             "Quit"
-//         ]
-//     }
-// ]
 
-// function next() {
-//     inquirer
-//         .prompt(nextQuestions)
-//         .then((data) => {
-//             if (data.next === "Continue") {
-//                 menu()
-//             } else {
-//                 console.log("Thanks You")
-//             }
-//         })
-// }
 
 function menu() {
     // Displays the menu to the screen 
@@ -59,7 +37,7 @@ function menu() {
         .prompt(questions)
         .then((data) => {
             if (data.choices === choice1) {
-                view.viewDeparts(); 
+                view.viewDeparts();
             } else if (data.choices === choice2) {
                 view.viewRoles();
             } else if (data.choices === choice3) {
@@ -71,7 +49,7 @@ function menu() {
             } else if (data.choices === choice6) {
                 add.addEmploy();
             } else if (data.choices === choice7) {
-                update.updateEmpRol()
+                update.updateEmpRol();
             } else {
                 console.log("Function not added");
             }
@@ -80,6 +58,4 @@ function menu() {
 
 menu();
 
-module.exports = menu
-// TODO: FInd out why the program is not stopping 
-// TODO: Make the add role get the employeeID using both the first and last name
+module.exports = menu;
